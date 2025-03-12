@@ -13,8 +13,8 @@ export async function getPriorities() {
   return response.data;
 }
 
-
 export async function getDepartments() {
   const response = await axios.get(`${API_URL}/departments`);
+
   return response.data;
 }

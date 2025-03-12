@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import styles from "./TasksPage.module.css";
 import { getStatuses } from "../../api/api";
-import { Status } from "../../Types";
-import FilterDropdown from "../../components/FilterDropdown/FilterDropdown";
-import activeDropDownIcon from "../../assets/active-dropdown.svg";
-import dropDownIcon from "../../assets/dropdown.svg";
-
-type Filter = "priorities" | "departments" | "co-workers";
+import { FilterType, SelectedFilters, Status } from "../../Types";
+import Filter from "../../components/Filter/Filter";
+import xIcon from "../../assets/x.svg";
 
 export default function TasksPage() {
   const [statuses, setStatuses] = useState<Array<Status> | null>(null);
-  const [filterBy, setFilterBy] = useState<Filter | "">("");
+  const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
+    priorities: [],
+    departments: [],
+    employees: [],
+  });
 
   function getStatusColor(statusId: number) {
     const statusColors = ["#F7BC30", "#FB5607", "#FF006E", "#3A86FF"];
@@ -18,71 +19,97 @@ export default function TasksPage() {
     return statusColors[statusId - 1];
   }
 
-  function handleFilterClick(filter: Filter) {
-    setFilterBy(filterBy === filter ? "" : filter);
-  }
-
   async function getStatusData() {
     try {
       const data = await getStatuses();
-      console.log(data);
       setStatuses(data);
     } catch (err: any) {
       console.log(err);
     }
   }
 
+  function handleRemoveFilter(
+    filterType: "priorities" | "departments" | "employees",
+    filterValue: string
+  ) {
+    setSelectedFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+      updatedFilters[filterType] = updatedFilters[filterType].filter(
+        (item) => item !== filterValue
+      );
+      return updatedFilters;
+    });
+  }
+
+  const [isInitialMount, setIsInitialMount] = useState(true);
+
   useEffect(() => {
+    const savedFilters = sessionStorage.getItem("selectedFilters");
+    if (savedFilters) {
+      console.log("Loaded filters from sessionStorage:", savedFilters);
+      setSelectedFilters(JSON.parse(savedFilters));
+    }
+    setIsInitialMount(false);
     getStatusData();
   }, []);
+
+  useEffect(() => {
+    if (isInitialMount) return;
+
+    console.log("Saving filters to sessionStorage:", selectedFilters);
+    sessionStorage.setItem("selectedFilters", JSON.stringify(selectedFilters));
+  }, [selectedFilters, isInitialMount]);
 
   return (
     <div className={styles.taskPage}>
       <h1>დავალებების გვერდი</h1>
-      <div className={styles.filterCont}>
-        <div className={styles.filters}>
-          <div
-            style={filterBy === "departments" ? { color: "#8338EC" } : {}}
-            className={styles.filter}
-            onClick={() => handleFilterClick("departments")}
-          >
-            დეპარტამენტი
-            {filterBy === "departments" ? (
-              <img src={activeDropDownIcon} />
-            ) : (
-              <img src={dropDownIcon} />
-            )}
+      <Filter
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+      ></Filter>
+      <div className={styles.selectedFilters}>
+        {[
+          ...selectedFilters.priorities.map((item) => ({
+            item,
+            source: "priorities",
+          })),
+          ...selectedFilters.departments.map((item) => ({
+            item,
+            source: "departments",
+          })),
+          ...selectedFilters.employees.map((item) => ({
+            item,
+            source: "employees",
+          })),
+        ].map((obj, index) => (
+          <div className={styles.selectedFilter} key={index}>
+            <div>{obj.item}</div>
+            <img
+              src={xIcon}
+              onClick={() =>
+                handleRemoveFilter(obj.source as FilterType, obj.item)
+              }
+            />
           </div>
+        ))}
+        {(selectedFilters.priorities.length > 0 ||
+          selectedFilters.departments.length > 0 ||
+          selectedFilters.employees.length > 0) && (
           <div
-            style={filterBy === "priorities" ? { color: "#8338EC" } : {}}
-            className={styles.filter}
-            onClick={() => handleFilterClick("priorities")}
+            className={styles.clearAllBtn}
+            onClick={() => {
+              setSelectedFilters({
+                priorities: [],
+                departments: [],
+                employees: [],
+              });
+            }}
           >
-            პრიორიტეტი
-            {filterBy === "priorities" ? (
-              <img src={activeDropDownIcon} />
-            ) : (
-              <img src={dropDownIcon} />
-            )}
+            გასუფთავება
           </div>
-          <div
-            style={filterBy === "co-workers" ? { color: "#8338EC" } : {}}
-            className={styles.filter}
-            onClick={() => handleFilterClick("co-workers")}
-          >
-            თანამშრომელი
-            {filterBy === "co-workers" ? (
-              <img src={activeDropDownIcon} />
-            ) : (
-              <img src={dropDownIcon} />
-            )}
-          </div>
-        </div>
-        {filterBy && (
-          <FilterDropdown filterBy={filterBy} close={() => setFilterBy("")} />
         )}
       </div>
-      <div className={styles.selectedFilters}></div>
+
       <div className={styles.statuses}>
         {statuses &&
           statuses.map((status: Status) => (
@@ -96,10 +123,10 @@ export default function TasksPage() {
           ))}
       </div>
       <div className={styles.tasks}>
-          <div className={styles.taskColumn}></div>
-          <div className={styles.taskColumn}></div>
-          <div className={styles.taskColumn}></div>
-          <div className={styles.taskColumn}></div>
+        <div className={styles.taskColumn}></div>
+        <div className={styles.taskColumn}></div>
+        <div className={styles.taskColumn}></div>
+        <div className={styles.taskColumn}></div>
       </div>
     </div>
   );

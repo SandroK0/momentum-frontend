@@ -3,4 +3,10 @@ export interface Status {
   name: String;
 }
 
+export interface SelectedFilters {
+  priorities: string[];
+  departments: string[];
+  employees: string[];
+}
 
+export type FilterType = "priorities" | "departments" | "employees";

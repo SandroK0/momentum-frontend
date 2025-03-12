@@ -1,0 +1,15 @@
+.filterCont {
+    position: relative;
+    width: 668px;
+  }
+  
+  .filters {
+    margin-top: 52px;
+    display: flex;
+    justify-content: space-around;
+    gap: 45px;
+  
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    width: 100%;
+  }
