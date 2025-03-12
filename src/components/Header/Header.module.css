@@ -1,0 +1,18 @@
+
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 31px;
+    padding-bottom: 31px;
+}
+
+
+.btnCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;                                    
+}
