@@ -1,18 +1,32 @@
-
-
-
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-top: 31px;
-    padding-bottom: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 31px;
+  padding-bottom: 31px;
 }
 
-
 .btnCont {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;                                    
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.btnCont button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #8338ec;
+}
+
+.createCoworkerBtn {
+  background-color: transparent;
+  color: #212529;
+}
+
+.createTaskBtn {
+  display: flex;
+  align-items: center;
+  background: #8338ec;
+  color: white;
 }

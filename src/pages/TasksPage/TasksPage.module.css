@@ -1,0 +1,57 @@
+.tasksPage {
+  height: 100%;
+}
+
+.tasksPage h1 {
+  margin-top: 40px;
+  font-size: 34px;
+  color: #212529;
+}
+
+.filterCont {
+  position: relative;
+  width: 668px;
+}
+
+.filters {
+  margin-top: 52px;
+  display: flex;
+  justify-content: space-around;
+  gap: 45px;
+
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  padding: 12.5px 0;
+  cursor: pointer;
+}
+
+.filter:hover {
+  color: #8338ec;
+}
+
+.statuses {
+  display: flex;
+  justify-content: space-between;
+}
+
+.status {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  width: 381px;
+  padding: 15px 0;
+  border-radius: 10px;
+  color: white;
+}
+
+.tasks {
+  display: flex;
+  justify-content: space-between;
+}
