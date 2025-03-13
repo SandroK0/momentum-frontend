@@ -75,6 +75,7 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           filters.map((el: any) => (
             <div className={styles.filter} key={el.id}>
               <input
+                className={styles.checkbox}
                 type="checkbox"
                 checked={selectedFiltersLocal.includes(el.name)}
                 onChange={() => handleCheckboxChange(el.name)}

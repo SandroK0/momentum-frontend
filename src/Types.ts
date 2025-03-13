@@ -1,6 +1,12 @@
 export interface Status {
   id: number;
-  name: String;
+  name: string;
+}
+
+
+export interface Department {
+  id: number;
+  name: string;
 }
 
 export interface SelectedFilters {

@@ -46,7 +46,6 @@ export default function TasksPage() {
   useEffect(() => {
     const savedFilters = sessionStorage.getItem("selectedFilters");
     if (savedFilters) {
-      console.log("Loaded filters from sessionStorage:", savedFilters);
       setSelectedFilters(JSON.parse(savedFilters));
     }
     setIsInitialMount(false);
@@ -56,7 +55,6 @@ export default function TasksPage() {
   useEffect(() => {
     if (isInitialMount) return;
 
-    console.log("Saving filters to sessionStorage:", selectedFilters);
     sessionStorage.setItem("selectedFilters", JSON.stringify(selectedFilters));
   }, [selectedFilters, isInitialMount]);
 

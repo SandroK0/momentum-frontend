@@ -35,3 +35,31 @@
 
 
 
+.checkbox {
+  /* Hide the default checkbox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Create the square */
+  width: 24px;
+  height: 24px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
