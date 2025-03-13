@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDepartments, getPriorities } from "../../api/api";
+import { getDepartments, getEmployees, getPriorities } from "../../api/api";
 import styles from "./FilterDropdown.module.css";
 import { FilterType, SelectedFilters } from "../../Types";
 
@@ -30,10 +30,11 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           break;
         case "employees":
           // Fake data for testing
-          data = [
-            { id: 1, name: "სანდრო ქარავა" },
-            { id: 2, name: "სანდრა ქარდავა" },
-          ];
+          data = await getEmployees();
+          if (!data) {
+            setMsg("თანამშრომლები ჯერ არ დაგიმატებიათ")
+            return
+          }
           break;
         default:
           return;

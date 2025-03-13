@@ -48,8 +48,13 @@
   gap: 8px;
 }
 
+.label { 
+  font-weight: 600;
+}
+
+
 .btnCont {
-  margin-top: 80px;
+  margin-top: 45px;
   display: flex;
   justify-content: right;
   gap: 22px;
@@ -71,6 +76,9 @@
 .btnCont button:last-child {
   background-color: #8338ec;
   color: white;
+}
+.btnCont button:last-child[disabled] {
+  cursor: not-allowed;
 }
 
 .depInput {
