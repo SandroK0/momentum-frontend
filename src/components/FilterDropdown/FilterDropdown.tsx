@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import { getDepartments, getEmployees, getPriorities } from "../../api/api";
 import styles from "./FilterDropdown.module.css";
-import { FilterType, SelectedFilters } from "../../Types";
+import { Employee, FilterType, SelectedFilters } from "../../Types";
 
 interface FilterDropdownProps {
   filterBy: FilterType;
   selectedFilters: SelectedFilters;
   setSelectedFilters: React.Dispatch<React.SetStateAction<SelectedFilters>>;
   close: () => void;
+}
+
+function handleEmployeeData(
+  employees: Employee[]
+): { id: number; name: string }[] {
+  return employees.map(({ id, name, surname }) => ({
+    id,
+    name: `${name} ${surname}`,
+  }));
 }
 
 export default function FilterDropdown(props: FilterDropdownProps) {
@@ -29,12 +38,13 @@ export default function FilterDropdown(props: FilterDropdownProps) {
           data = await getDepartments();
           break;
         case "employees":
-          // Fake data for testing
           data = await getEmployees();
+
           if (!data) {
-            setMsg("თანამშრომლები ჯერ არ დაგიმატებიათ")
-            return
+            setMsg("თანამშრომლები ჯერ არ დაგიმატებიათ");
+            return;
           }
+          data = handleEmployeeData(data);
           break;
         default:
           return;
