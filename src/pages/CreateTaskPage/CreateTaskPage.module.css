@@ -1,0 +1,131 @@
+.createTaskPage h1 {
+  margin-top: 40px;
+}
+
+.taskFormCont {
+  margin-top: 30px;
+  background-color: #fbf9ffa6;
+  width: 100%;
+  height: 804px;
+  border: 0.3px solid #ddd2ff;
+  border-radius: 4px;
+  padding: 65px 368px 62px 55px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+}
+
+.taskForm {
+  display: flex;
+  justify-content: space-between;
+  gap: 161px;
+  height: 100%;
+}
+
+.taskForm select {
+  background-color: white;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  /* width: 259px; */
+  font-size: 14px;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.inputColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 550px;
+}
+
+.inputCont {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+
+.titleInput {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.textArea {
+  height: 133px;
+  border-radius: 5px;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  resize: none;
+  padding: 14px;
+  font-size: 14px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.reqField {
+  font-size: 10px;
+  color: #6c757d;
+}
+
+.selectInputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.selectInputs select {
+  width: 259px;
+}
+
+.depInput {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 3px;
+  width: 100%;
+  background-color: white;
+}
+
+.emplInput {
+  margin-top: 93px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 3px;
+  width: 100%;
+}
+
+.dateInput {
+  margin-top: 167px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 3px;
+  width: 318px;
+}
+
+.dateInput input {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.createTaskBtn {
+  all: unset;
+  background-color: #8338ec;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

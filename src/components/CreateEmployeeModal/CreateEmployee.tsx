@@ -77,8 +77,6 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
   };
 
   const isDisabled = (): boolean => {
-    console.log("test");
-
     if (!selectedImage) {
       return true;
     }
