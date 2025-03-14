@@ -1,9 +1,44 @@
 import { useEffect, useState } from "react";
 import styles from "./TasksPage.module.css";
 import { getStatuses } from "../../api/api";
-import { FilterType, SelectedFilters, Status } from "../../Types";
+import { FilterType, SelectedFilters, Status, TaskData } from "../../Types";
 import Filter from "../../components/Filter/Filter";
 import xIcon from "../../assets/x.svg";
+import TaskCard from "../../components/TaskCard/TaskCard";
+
+const tasks: TaskData[] = [
+  {
+    id: 359,
+    name: "შექმენით readme ფაილი",
+    description: "აღწერეთ შესრულებული დავალება რიდმი ფაილით",
+    due_date: "2025-12-30T20:00:00.000000Z",
+    department: {
+      id: 6,
+      name: "ტექნოლოგიების დეპარტამენტი",
+    },
+    employee: {
+      id: 272,
+      name: "სანდრო",
+      surname: "ქარდავა",
+      avatar:
+        "https://momentum.redberryinternship.ge/storage/employee-avatars/OK84ffrz4rM8lASxZ1b5FyAZLFC18rP3b4WskgdW.jpg",
+      department: {
+        id: 6,
+        name: "ტექნოლოგიების დეპარტამენტი",
+      },
+    },
+    status: {
+      id: 1,
+      name: "დასაწყები",
+    },
+    priority: {
+      id: 1,
+      name: "დაბალი",
+      icon: "https://momentum.redberryinternship.ge/storage/priority-icons/Low.svg",
+    },
+    total_comments: 0,
+  },
+];
 
 export default function TasksPage() {
   const [statuses, setStatuses] = useState<Array<Status> | null>(null);
@@ -121,10 +156,25 @@ export default function TasksPage() {
           ))}
       </div>
       <div className={styles.tasks}>
-        <div className={styles.taskColumn}></div>
-        <div className={styles.taskColumn}></div>
-        <div className={styles.taskColumn}></div>
-        <div className={styles.taskColumn}></div>
+        <div className={styles.taskColumn}>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+        </div>
+        <div className={styles.taskColumn}>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+        </div>
+        <div className={styles.taskColumn}>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+        </div>
+        <div className={styles.taskColumn}>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+          <TaskCard taskData={tasks[0]}></TaskCard>
+        </div>
       </div>
     </div>
   );
