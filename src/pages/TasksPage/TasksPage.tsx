@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./TasksPage.module.css";
-import { getStatuses } from "../../api/api";
+import { getAllTasks, getStatuses } from "../../api/api";
 import { FilterType, SelectedFilters, Status, TaskData } from "../../Types";
 import Filter from "../../components/Filter/Filter";
 import xIcon from "../../assets/x.svg";
@@ -42,6 +42,7 @@ const tasks: TaskData[] = [
 
 export default function TasksPage() {
   const [statuses, setStatuses] = useState<Array<Status> | null>(null);
+  const [tasks, setTasks] = useState<Array<TaskData> | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
     priorities: [],
     departments: [],
@@ -60,6 +61,15 @@ export default function TasksPage() {
       setStatuses(data);
     } catch (err: any) {
       console.log(err);
+    }
+  }
+
+  async function getTaskData() {
+    try {
+      const data = await getAllTasks();
+      setTasks(data);
+    } catch (error: any) {
+      console.log("Error fetching tasks", error);
     }
   }
 
@@ -85,6 +95,7 @@ export default function TasksPage() {
     }
     setIsInitialMount(false);
     getStatusData();
+    getTaskData();
   }, []);
 
   useEffect(() => {
@@ -92,6 +103,50 @@ export default function TasksPage() {
 
     sessionStorage.setItem("selectedFilters", JSON.stringify(selectedFilters));
   }, [selectedFilters, isInitialMount]);
+
+  const groupedTasks = tasks?.reduce((acc, task) => {
+    const statusId = task.status.id;
+    if (!acc[statusId]) {
+      acc[statusId] = [];
+    }
+    acc[statusId].push(task);
+    return acc;
+  }, {} as Record<number, TaskData[]>);
+
+  const matchesFilters = (task: TaskData) => {
+    if (
+      selectedFilters.priorities.length === 0 &&
+      selectedFilters.departments.length === 0 &&
+      selectedFilters.employees.length === 0
+    ) {
+      return true;
+    }
+
+    if (
+      selectedFilters.priorities.length > 0 &&
+      !selectedFilters.priorities.includes(task.priority.name)
+    ) {
+      return false;
+    }
+
+    if (
+      selectedFilters.departments.length > 0 &&
+      !selectedFilters.departments.includes(task.department.name)
+    ) {
+      return false;
+    }
+
+    if (
+      selectedFilters.employees.length > 0 &&
+      !selectedFilters.employees.includes(
+        `${task.employee.name} ${task.employee.surname}`
+      )
+    ) {
+      return false;
+    }
+
+    return true;
+  };
 
   return (
     <div className={styles.taskPage}>
@@ -143,38 +198,27 @@ export default function TasksPage() {
         )}
       </div>
 
-      <div className={styles.statuses}>
-        {statuses &&
-          statuses.map((status: Status) => (
-            <div
-              key={status.id}
-              className={styles.status}
-              style={{ backgroundColor: getStatusColor(status.id) }}
-            >
-              {status.name}
-            </div>
-          ))}
-      </div>
       <div className={styles.tasks}>
-        <div className={styles.taskColumn}>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-        </div>
-        <div className={styles.taskColumn}>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-        </div>
-        <div className={styles.taskColumn}>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-        </div>
-        <div className={styles.taskColumn}>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-          <TaskCard taskData={tasks[0]}></TaskCard>
-        </div>
+        {statuses && (
+          <>
+            {statuses.map((status) => (
+              <div key={status.id} className={styles.taskColumn}>
+                <div
+                  className={styles.status}
+                  style={{ backgroundColor: getStatusColor(status.id) }}
+                >
+                  {status.name}
+                </div>
+                {groupedTasks &&
+                  groupedTasks[status.id]?.map((task) => {
+                    if (matchesFilters(task)) {
+                      return <TaskCard key={task.id} taskData={task} />;
+                    }
+                  })}
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

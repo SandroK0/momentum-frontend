@@ -32,6 +32,15 @@ export async function getEmployees() {
   return response.data;
 }
 
+
+export async function getAllTasks() {
+  const response = await axios.get(`${API_URL}/tasks`, {
+    headers: getAuthHeaders(),
+  });
+  console.log(response.data)
+  return response.data;
+}
+
 export async function postEmployee(
   name: string,
   surname: string,

@@ -4,6 +4,11 @@ import { TaskData } from "../../Types";
 import { DateConverter } from "../../utils/dateUtils";
 
 export default function TaskCard({ taskData }: { taskData: TaskData }) {
+
+  function truncateText(text: string, maxLength: number) {
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  }
+
   function getBorerColor() {
     switch (taskData.status.name) {
       case "დასაწყები":
@@ -24,9 +29,30 @@ export default function TaskCard({ taskData }: { taskData: TaskData }) {
       case "დაბალი":
         return "#08A508";
       case "საშუალო":
-        return "##FFBE0B";
+        return "#FFBE0B";
       case "მაღალი":
         return "#FA4D4D";
+      default:
+        break;
+    }
+  }
+
+  function getDepartmentColor() {
+    switch (taskData.department.name) {
+      case "ადმინისტრაციის დეპარტამენტი":
+        return "#08A508";
+      case "ადამიანური რესურსების დეპარტამენტი":
+        return "#FFBE0B";
+      case "ფინანსების დეპარტამენტი":
+        return "#FA4D4D";
+      case "გაყიდვები და მარკეტინგის დეპარტამენტი":
+        return "#FD9A6A";
+      case "ლოჯოსტიკის დეპარტამენტი":
+        return "#89B6FF";
+      case "ტექნოლოგიების დეპარტამენტი":
+        return "#FFD86D";
+      case "მედიის დეპარტამენტი":
+        return "#8338EC";
       default:
         break;
     }
@@ -46,7 +72,7 @@ export default function TaskCard({ taskData }: { taskData: TaskData }) {
             <img src={taskData.priority.icon} />
             <div>{taskData.priority.name}</div>
           </div>
-          <div className={styles.department}>{taskData.department.name}</div>
+          <div className={styles.department} style={{backgroundColor: getDepartmentColor()}}>{taskData.department.name}</div>
         </div>
         <div className={styles.due}>
           <DateConverter dateString={taskData.due_date} />
@@ -54,7 +80,7 @@ export default function TaskCard({ taskData }: { taskData: TaskData }) {
       </div>
       <div>
         <h4>{taskData.name}</h4>
-        <p>{taskData.description}</p>
+        <p>{taskData.description && truncateText(taskData.description, 100)}</p>
       </div>
       <div className={styles.bottom}>
         <img
