@@ -1,5 +1,7 @@
 .tasksPage {
   height: 100%;
+  width: 100%; /* or whatever width you need */
+  overflow-x: hidden;
 }
 
 .tasksPage h1 {
@@ -14,6 +16,10 @@
   gap: 20px;
   width: 100%;
   min-height: 35px;
+  overflow-x: scroll;
+  scrollbar-width: thin;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .selectedFilter {
@@ -27,6 +33,7 @@
   border: 1px solid #ced4da;
   border-radius: 43px;
   cursor: pointer;
+  flex: 0 0 auto;
 }
 
 .clearAllBtn {
