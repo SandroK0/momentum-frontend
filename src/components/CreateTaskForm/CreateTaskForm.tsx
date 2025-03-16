@@ -98,8 +98,8 @@ export default function CreateTaskForm() {
     if (defaultPriority && defaultStatus) {
       setForm((prev) => ({
         ...prev,
-        priority: defaultPriority.id,
-        status: defaultStatus.id,
+        ...(prev.priority === -1 && { priority: defaultPriority.id }),
+        ...(prev.status === -1 && { status: defaultStatus.id }),
       }));
     }
   }, [priorities, statuses]);
@@ -108,12 +108,24 @@ export default function CreateTaskForm() {
   const descErrors = validateDescription(form.description);
 
   const handleChange = (field: keyof typeof form, value: string | number) => {
-    setForm((prev) => ({
-      ...prev,
-      [field]: value,
-      ...(field === "department" && { employee: -1 }), // Reset employee if department changes
-    }));
+    setForm((prev) => {
+      const updatedForm = {
+        ...prev,
+        [field]: value,
+        ...(field === "department" && { employee: -1 }),
+      };
+      sessionStorage.setItem("form", JSON.stringify(updatedForm));
+      return updatedForm;
+    });
   };
+
+  useEffect(() => {
+    const savedForm = sessionStorage.getItem("form");
+    if (savedForm) {
+      const parsedForm = JSON.parse(savedForm);
+      setForm(parsedForm);
+    }
+  }, []);
 
   const correct = { color: "#08A508" };
 
@@ -139,6 +151,7 @@ export default function CreateTaskForm() {
         form.employee,
         form.priority
       );
+      sessionStorage.removeItem("form");
       navigate("/");
     } catch (error: any) {
       console.log("Error creating task", error);
@@ -157,7 +170,7 @@ export default function CreateTaskForm() {
     }),
     valueContainer: (baseStyles: any) => ({
       ...baseStyles,
-      padding: "0", // Set your desired padding here (e.g., top/bottom 8px, left/right 12px)
+      padding: "0",
     }),
     indicatorSeparator: (baseStyles: any) => ({
       ...baseStyles,
@@ -177,15 +190,19 @@ export default function CreateTaskForm() {
     }),
     valueContainer: (baseStyles: any) => ({
       ...baseStyles,
-      padding: "0", // Set your desired padding here (e.g., top/bottom 8px, left/right 12px)
+      padding: "0",
     }),
     indicatorSeparator: (baseStyles: any) => ({
       ...baseStyles,
       display: "none",
     }),
+    placeholder: (baseStyles: any) => ({
+      ...baseStyles,
+      color: "#999",
+      fontSize: "14px",
+      padding: "8px",
+    }),
   };
-
-  console.log(form);
 
   return (
     <div className={styles.taskFormCont}>
@@ -246,7 +263,7 @@ export default function CreateTaskForm() {
               <Select<Priority>
                 options={priorities}
                 value={priorities.find((p) => p.id === form.priority)}
-                getOptionValue={(option: Priority) => String(option.id)} // Convert number to string
+                getOptionValue={(option: Priority) => String(option.id)}
                 getOptionLabel={(option: Priority) => option.name}
                 isSearchable={false}
                 onChange={(newVal: SingleValue<Priority>) => {
@@ -269,7 +286,7 @@ export default function CreateTaskForm() {
               <Select<Status>
                 options={statuses}
                 value={statuses.find((s) => s.id === form.status)}
-                getOptionValue={(option: Status) => String(option.id)} // Convert number to string
+                getOptionValue={(option: Status) => String(option.id)}
                 getOptionLabel={(option: Status) => option.name}
                 isSearchable={false}
                 onChange={(newVal: SingleValue<Status>) => {
@@ -322,7 +339,7 @@ export default function CreateTaskForm() {
                     )
                   : []
               }
-              value={employees.find((e) => e.id === form.employee) || null} // Ensure it visually resets
+              value={employees.find((e) => e.id === form.employee) || null}
               getOptionValue={(option: Employee) => String(option.id)}
               getOptionLabel={(option: Employee) => option.name}
               placeholder=""
