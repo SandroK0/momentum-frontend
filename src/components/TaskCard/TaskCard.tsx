@@ -1,7 +1,7 @@
 import styles from "./TaskCard.module.css";
 import commentsIcon from "../../assets/Comments.svg";
 import { TaskData } from "../../Types";
-import { DateConverter } from "../../utils/DateConvert";
+import { DateConverter } from "../../utils/dateUtils";
 
 export default function TaskCard({ taskData }: { taskData: TaskData }) {
   function getBorerColor() {

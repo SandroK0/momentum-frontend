@@ -54,3 +54,32 @@ export async function postEmployee(
 
   return response.data;
 }
+
+export async function postTask(
+  name: string,
+  description: string,
+  due_date: string,
+  status_id: number,
+  employee_id: number,
+  priority_id: number
+) {
+  const response = await axios.post(
+    `${API_URL}/tasks`,
+    {
+      name,
+      description,
+      due_date,
+      status_id,
+      employee_id,
+      priority_id,
+    },
+    {
+      headers: {
+        ...getAuthHeaders(),
+        Accept: "application/json",
+      },
+    }
+  );
+
+  return response.data;
+}

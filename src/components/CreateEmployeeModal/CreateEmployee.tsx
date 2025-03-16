@@ -5,28 +5,26 @@ import { useEffect, useState } from "react";
 import ImageUploader from "../ImageUploader/ImageUploader";
 import { getDepartments, postEmployee } from "../../api/api";
 import { Department } from "../../Types";
+import {
+  NameValidationErrors,
+  validateName,
+} from "../../utils/validationUtils";
 
 interface CreateEmployeeProps {
   closeModal: () => void;
-}
-
-interface ValidationErrors {
-  minLength: boolean;
-  maxLength: boolean;
-  invalidChars: boolean;
 }
 
 export default function CreateEmployee(props: CreateEmployeeProps) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [departmentsData, setDepartmentsData] = useState<Array<Department>>([]);
   const [name, setName] = useState<string>("");
-  const [nameErrors, setNameErrors] = useState<ValidationErrors>({
+  const [nameErrors, setNameErrors] = useState<NameValidationErrors>({
     minLength: false,
     maxLength: false,
     invalidChars: false,
   });
   const [lastName, setLastName] = useState<string>("");
-  const [lastNameErrors, setLastNameErrors] = useState<ValidationErrors>({
+  const [lastNameErrors, setLastNameErrors] = useState<NameValidationErrors>({
     minLength: false,
     maxLength: false,
     invalidChars: false,
@@ -46,29 +44,13 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
     getDepartmentsData();
   }, []);
 
-  const validate = (value: string): ValidationErrors => {
-    if (!value) {
-      return {
-        minLength: false,
-        maxLength: false,
-        invalidChars: false,
-      };
-    }
-
-    return {
-      minLength: value.length < 2,
-      maxLength: value.length > 255,
-      invalidChars: !/^[a-zA-Zა-ჰ]+$/.test(value),
-    };
-  };
-
   const handleNameChange = (value: string) => {
-    const errors = validate(value);
+    const errors = validateName(value);
     setNameErrors(errors);
   };
 
   const handleLastNameChange = (value: string) => {
-    const errors = validate(value);
+    const errors = validateName(value);
     setLastNameErrors(errors);
   };
 
@@ -114,7 +96,6 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
     }
   }
 
-  console.log(selectedImage);
   return (
     <ModalWrapper closeModal={props.closeModal}>
       <div className={styles.cont}>

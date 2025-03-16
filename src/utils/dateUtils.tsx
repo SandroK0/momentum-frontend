@@ -1,7 +1,18 @@
-
 interface DateConverterProps {
-    dateString: string;
-  }
+  dateString: string;
+}
+
+export const getTomorrowDate = () => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+};
+
+// Get today's date for min attribute
+export const getTodayDate = () => {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+};
 
 export const DateConverter: React.FC<DateConverterProps> = ({ dateString }) => {
   const formatDateToEnglish = (dateStr: string): string => {
