@@ -1,0 +1,98 @@
+.top {
+  margin-top: 51px;
+  display: flex;
+  gap: 18px;
+}
+.department {
+  text-align: center;
+  background-color: #ff66a8;
+  color: white;
+  font-size: 12px;
+  border-radius: 15px;
+  padding: 5px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.priority {
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 0.5px solid black;
+  border-radius: 4px;
+}
+
+.desc {
+  margin-top: 50px;
+}
+
+.cont {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+  margin-top: 63px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+
+.row .left {
+  display: flex;
+  width: 170px;
+  gap: 6px;
+}
+
+.optionStyle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px;
+  font-size: 14px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.taskData {
+  width: 715px;
+}
+
+.avatar {
+  width: 31px;
+  height: 31px;
+  font-size: 14px;
+  border-radius: 31px;
+}
+
+.date {
+  font-size: 14px;
+  color: #0d0f10;
+  align-items: center;
+}
+
+.employee {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #0d0f10;
+}
+
+.employee p {
+  font-size: 11px;
+  font-weight: 300;
+  color: #474747;
+}

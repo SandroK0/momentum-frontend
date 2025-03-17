@@ -39,7 +39,15 @@ export interface TaskData {
   department: Department;
   priority: Priority;
   employee: Employee;
-  total_comments: number
+  total_comments: number;
 }
 
-
+export interface Comment {
+  id: number;
+  text: string;
+  task_id: number;
+  parent_id: number | null;
+  author_avatar: string;
+  author_nickname: string;
+  sub_comments: Comment[];
+}

@@ -15,7 +15,7 @@ const Router: React.FC = () => {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index element={<TasksPage />}></Route>
-        <Route path="/task" element={<TaskPage />}></Route>
+        <Route path="/task/:id" element={<TaskPage />}></Route>
         <Route path="/create-task" element={<CreateTaskPage />}></Route>
       </Route>
     )

@@ -32,12 +32,17 @@ export async function getEmployees() {
   return response.data;
 }
 
-
 export async function getAllTasks() {
   const response = await axios.get(`${API_URL}/tasks`, {
     headers: getAuthHeaders(),
   });
-  console.log(response.data)
+  return response.data;
+}
+
+export async function getTask(id: number) {
+  const response = await axios.get(`${API_URL}/tasks/${id}`, {
+    headers: getAuthHeaders(),
+  });
   return response.data;
 }
 
@@ -87,6 +92,46 @@ export async function postTask(
         ...getAuthHeaders(),
         Accept: "application/json",
       },
+    }
+  );
+
+  return response.data;
+}
+
+export async function putTaskStatus(id: number, status_id: number) {
+  const response = await axios.put(
+    `${API_URL}/tasks/${id}`,
+    {
+      status_id,
+    },
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+  return response.data;
+}
+
+export async function getAllComments(taskId: number) {
+  const response = await axios.get(`${API_URL}/tasks/${taskId}/comments`, {
+    headers: getAuthHeaders(),
+  });
+
+  return response.data;
+}
+
+export async function postComment(
+  taskId: number,
+  text: string,
+  parent_id?: number
+) {
+  const response = await axios.post(
+    `${API_URL}/tasks/${taskId}/comments`,
+    {
+      text,
+      parent_id,
+    },
+    {
+      headers: getAuthHeaders(),
     }
   );
 

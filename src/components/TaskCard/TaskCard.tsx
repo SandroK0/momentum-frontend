@@ -2,77 +2,42 @@ import styles from "./TaskCard.module.css";
 import commentsIcon from "../../assets/Comments.svg";
 import { TaskData } from "../../Types";
 import { DateConverter } from "../../utils/dateUtils";
+import { useNavigate } from "react-router";
+import { getBorerColorViaStatus, getPriorityColor, getDepartmentColor } from "../../utils/colorUtils";
 
 export default function TaskCard({ taskData }: { taskData: TaskData }) {
+  const navigate = useNavigate();
 
   function truncateText(text: string, maxLength: number) {
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   }
 
-  function getBorerColor() {
-    switch (taskData.status.name) {
-      case "დასაწყები":
-        return "#F7BC30";
-      case "პროგრესში":
-        return "#FB5607";
-      case "მზად ტესტირებისთვის":
-        return "#FF006E";
-      case "დასრულებული":
-        return "#3A86FF";
-      default:
-        break;
-    }
-  }
-
-  function getPriorityColor() {
-    switch (taskData.priority.name) {
-      case "დაბალი":
-        return "#08A508";
-      case "საშუალო":
-        return "#FFBE0B";
-      case "მაღალი":
-        return "#FA4D4D";
-      default:
-        break;
-    }
-  }
-
-  function getDepartmentColor() {
-    switch (taskData.department.name) {
-      case "ადმინისტრაციის დეპარტამენტი":
-        return "#08A508";
-      case "ადამიანური რესურსების დეპარტამენტი":
-        return "#FFBE0B";
-      case "ფინანსების დეპარტამენტი":
-        return "#FA4D4D";
-      case "გაყიდვები და მარკეტინგის დეპარტამენტი":
-        return "#FD9A6A";
-      case "ლოჯოსტიკის დეპარტამენტი":
-        return "#89B6FF";
-      case "ტექნოლოგიების დეპარტამენტი":
-        return "#FFD86D";
-      case "მედიის დეპარტამენტი":
-        return "#8338EC";
-      default:
-        break;
-    }
-  }
-
   return (
-    <div className={styles.taskCard} style={{ borderColor: getBorerColor() }}>
+    <div
+      className={styles.taskCard}
+      style={{ borderColor: getBorerColorViaStatus(taskData.status.name) }}
+      onClick={() => {
+        navigate(`/task/${taskData.id}`);
+      }}
+    >
       <div className={styles.top}>
         <div className={styles.topLeft}>
           <div
             className={styles.priority}
             style={{
-              borderColor: getPriorityColor(),
-              color: getPriorityColor(),
+              borderColor: getPriorityColor(taskData.priority.name),
+              color: getPriorityColor(taskData.priority.name),
             }}
           >
             <img src={taskData.priority.icon} />
             <div>{taskData.priority.name}</div>
           </div>
-          <div className={styles.department} style={{backgroundColor: getDepartmentColor()}}>{taskData.department.name}</div>
+          <div
+            className={styles.department}
+            style={{ backgroundColor: getDepartmentColor(taskData.department.name) }}
+          >
+            {taskData.department.name}
+          </div>
         </div>
         <div className={styles.due}>
           <DateConverter dateString={taskData.due_date} />

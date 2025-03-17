@@ -7,4 +7,6 @@
     box-sizing: border-box;
     padding-left: 6.25%;
     padding-right: 6.25%;
+
+    overflow-x: hidden;
 }
