@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "./ImageUploader.module.css";
 import trashIcon from "../../assets/trash-icon.svg";
+import uploadIcon from "../../assets/gallery-export.svg"
+
 
 interface ImageUploaderProps {
   onImageSelect: (file: File | null) => void;
@@ -36,21 +38,22 @@ export default function ImageUploader({ onImageSelect }: ImageUploaderProps) {
   return (
     <>
       <div className={styles.uploadContainer}>
-        <div
-          className={styles.uploadBox}
-          onClick={() => document.getElementById("fileInput")?.click()}
-        >
-          {preview ? (
+        {preview ? (
+          <div className={styles.preview}>
             <img src={preview} alt="Preview" className={styles.previewImage} />
-          ) : (
-            <span className={styles.uploadText}>Click to upload image</span>
-          )}
-          {preview && (
             <button onClick={(e) => deleteImage(e)}>
               <img src={trashIcon} alt="Delete" />
             </button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div
+            className={styles.uploadClickCont}
+            onClick={() => document.getElementById("fileInput")?.click()}
+          >
+            <img src={uploadIcon} alt="" />
+            <span className={styles.uploadText}>ატვირთე ფოტო</span>
+          </div>
+        )}
         <input
           id="fileInput"
           type="file"

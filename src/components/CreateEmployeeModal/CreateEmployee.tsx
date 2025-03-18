@@ -54,9 +54,17 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
     setLastNameErrors(errors);
   };
 
-  const inputStyle = {
-    error: { color: "red" },
+
+  const validColors = {
+    error: {
+      color: "red",
+    },
+    correct: {
+      color: "#08A508"
+    }
   };
+
+
 
   const isDisabled = (): boolean => {
     if (!selectedImage) {
@@ -126,19 +134,19 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
             />
             <p
               className={styles.reqField}
-              style={nameErrors.minLength ? inputStyle.error : {}}
+              style={name ? !nameErrors.minLength ? validColors.correct : validColors.error : {}}
             >
               მინიმუმ 2 სიმბოლო
             </p>
             <p
               className={styles.reqField}
-              style={nameErrors.maxLength ? inputStyle.error : {}}
+              style={name ? !nameErrors.maxLength ? validColors.correct : validColors.error : {}}
             >
               მაქსუმუმ 255 სიმბოლო
             </p>
             <p
               className={styles.reqField}
-              style={nameErrors.invalidChars ? inputStyle.error : {}}
+              style={name ? !nameErrors.invalidChars ? validColors.correct : validColors.error : {}}
             >
               მარტო ლათინური და ქართული სიმბოლოები
             </p>
@@ -159,19 +167,19 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
             />
             <p
               className={styles.reqField}
-              style={lastNameErrors.minLength ? inputStyle.error : {}}
+              style={lastName ? !lastNameErrors.minLength ? validColors.correct : validColors.error : {}}
             >
               მინიმუმ 2 სიმბოლო
             </p>
             <p
               className={styles.reqField}
-              style={lastNameErrors.maxLength ? inputStyle.error : {}}
+              style={lastName ? !lastNameErrors.maxLength ? validColors.correct : validColors.error : {}}
             >
               მაქსუმუმ 255 სიმბოლო
             </p>
             <p
               className={styles.reqField}
-              style={lastNameErrors.invalidChars ? inputStyle.error : {}}
+              style={lastName ? !lastNameErrors.invalidChars ? validColors.correct : validColors.error : {}}
             >
               მარტო ლათინური და ქართული სიმბოლოები
             </p>

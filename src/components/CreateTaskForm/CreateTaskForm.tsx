@@ -127,7 +127,14 @@ export default function CreateTaskForm() {
     }
   }, []);
 
-  const correct = { color: "#08A508" };
+  const validColors = {
+    error: {
+      color: "red",
+    },
+    correct: {
+      color: "#08A508"
+    }
+  };
 
   const isDisabled = () =>
     titleErrors.minLength ||
@@ -163,6 +170,13 @@ export default function CreateTaskForm() {
       ...baseStyles,
       height: "45px",
       padding: "0",
+      borderColor: "#ccc", // Static border color, no change on focus
+      outline: "none", // Static outline, no change on focus
+      boxShadow: "none", // Static, no shadow on focus
+      "&:hover": {
+        borderColor: "#ccc", // Optional: change on hover, but not focus
+      },
+
     }),
     container: (baseStyles: any) => ({
       ...baseStyles,
@@ -183,10 +197,17 @@ export default function CreateTaskForm() {
       ...baseStyles,
       height: "45px",
       padding: "0",
+      borderColor: "#ccc", // Static border color, no change on focus
+      outline: "none", // Static outline, no change on focus
+      boxShadow: "none", // Static, no shadow on focus
+      "&:hover": {
+        borderColor: "#ccc", // Optional: change on hover, but not focus
+      },
     }),
     container: (baseStyles: any) => ({
       ...baseStyles,
       width: "100%",
+      outline: "none"
     }),
     valueContainer: (baseStyles: any) => ({
       ...baseStyles,
@@ -222,13 +243,13 @@ export default function CreateTaskForm() {
             />
             <p
               className={styles.reqField}
-              style={!titleErrors.minLength && form.title ? correct : {}}
+              style={form.title ? !titleErrors.minLength ? validColors.correct : validColors.error : {}}
             >
               მინიმუმ 3 სიმბოლო
             </p>
             <p
               className={styles.reqField}
-              style={!titleErrors.maxLength && form.title ? correct : {}}
+              style={form.title ? !titleErrors.maxLength ? validColors.correct : validColors.error : {}}
             >
               მაქსუმუმ 255 სიმბოლო
             </p>
@@ -246,13 +267,13 @@ export default function CreateTaskForm() {
             ></textarea>
             <p
               className={styles.reqField}
-              style={!descErrors.minWords && form.description ? correct : {}}
+              style={form.description ? !descErrors.minWords ? validColors.correct : validColors.error : {}}
             >
               მინიმუმ 4 სიტყვა
             </p>
             <p
               className={styles.reqField}
-              style={!descErrors.maxLength && form.description ? correct : {}}
+              style={form.description ? !descErrors.maxLength ? validColors.correct : validColors.error : {}}
             >
               მაქსიმუმ 255 სიმბოლო
             </p>
@@ -335,8 +356,8 @@ export default function CreateTaskForm() {
               options={
                 form.department !== -1
                   ? employees.filter(
-                      (employee) => employee.department.id === form.department
-                    )
+                    (employee) => employee.department.id === form.department
+                  )
                   : []
               }
               value={employees.find((e) => e.id === form.employee) || null}

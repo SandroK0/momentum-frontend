@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
@@ -16,7 +17,7 @@
   font-weight: bold;
 }
 
-.uploadBox {
+.preview {
   position: relative;
   width: 88px;
   height: 88px;
@@ -30,7 +31,7 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.uploadBox button {
+.preview button {
   all: unset;
   background-color: transparent;
   position: absolute;
@@ -43,11 +44,11 @@
 } 
 
 
-.uploadBox button img {
+.preview button img {
   width: 24px;
 }
 
-.uploadBox:hover {
+.preview:hover {
   background-color: #e9ecef;
 }
 
@@ -60,9 +61,10 @@
 }
 
 .uploadText {
-  color: #ced4da;
-  font-size: 11px;
   text-align: center;
+
+  font-size: 14px;
+  color: #343A40;
 }
 
 .hiddenInput {
@@ -84,3 +86,21 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+
+.uploadClickCont {
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+
+}
+
+.uploadClickCont img {
+  width: 24px;
+}
+
+
+
+

@@ -37,6 +37,22 @@ export default function CommentSection(props: { taskId: number }) {
     }
   }
 
+
+  function countComments(comments: Comment[]) {
+
+    let c = 0
+
+    comments.forEach((comment: Comment) => {
+
+      c += 1
+      c += comment.sub_comments.length
+
+    })
+    return c
+  }
+
+
+
   useEffect(() => {
     getComments();
   }, []);
@@ -54,7 +70,7 @@ export default function CommentSection(props: { taskId: number }) {
         <button onClick={() => submitComment(text)}>დააკომენტარე</button>
       </div>
       <div className={styles.commentCount}>
-        კომენტარები <span>{comments?.length}</span>
+        კომენტარები <span>{comments ? countComments(comments) : 0}</span>
       </div>
       <div>
         {comments &&

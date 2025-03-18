@@ -13,6 +13,11 @@
   position: absolute;
 }
 
+
+.cont input:focus{
+  outline: none;
+}
+
 .cont h2 {
   text-align: center;
   margin-top: 37px;
@@ -40,6 +45,8 @@
   font-size: 14px;
   border-radius: 6px;
 }
+
+
 
 .imgInputCont {
   margin-top: 45px;

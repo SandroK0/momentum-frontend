@@ -12,6 +12,17 @@
   gap: 150px;
 }
 
+
+.taskFormCont input:focus {
+  outline: none;
+}
+
+.taskFormCont textarea:focus {
+  outline: none;
+}
+
+
+
 .taskForm {
   display: flex;
   justify-content: space-between;
