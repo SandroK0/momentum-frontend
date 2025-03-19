@@ -5,7 +5,7 @@ import { Comment } from "../../Types";
 import leftIcon from "../../assets/Left 2.svg";
 
 export default function CommentSection(props: { taskId: number }) {
-  const [comments, setComments] = useState<Comment[] | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [show, setShow] = useState<number | null>(null);
   const [text, setText] = useState<string>("");
   const [text2, setText2] = useState<string>("");
@@ -26,31 +26,41 @@ export default function CommentSection(props: { taskId: number }) {
     }
 
     try {
-      await postComment(props.taskId, text, parent_id);
+      const comment: Comment = await postComment(props.taskId, text, parent_id);
+
+      if (!comment.parent_id) {
+        setComments([comment, ...(comments as Comment[])]);
+      } else {
+        const updatedComments = comments.map((c: Comment) => {
+          if (c.id === comment.parent_id) {
+            return {
+              ...c,
+              sub_comments: [comment, ...(c.sub_comments || [])],
+            };
+          }
+          return c;
+        });
+        setComments(updatedComments);
+      }
 
       setText("");
       setText2("");
-      getComments();
     } catch (error) {
       console.log("Error submititng comment", error);
     }
   }
 
-
   function countComments(comments: Comment[]) {
-
-    let c = 0
+    let c = 0;
 
     comments.forEach((comment: Comment) => {
-
-      c += 1
-      c += comment.sub_comments.length
-
-    })
-    return c
+      c += 1;
+      if (comment.sub_comments) {
+        c += comment.sub_comments.length;
+      }
+    });
+    return c;
   }
-
-
 
   useEffect(() => {
     getComments();
@@ -73,9 +83,9 @@ export default function CommentSection(props: { taskId: number }) {
       </div>
       <div>
         {comments &&
-          [...comments].reverse().map((comment: Comment) => (
-            <div className={styles.commentList}key={comment.id}>
-              <div className={styles.comment} >
+          comments.map((comment: Comment) => (
+            <div className={styles.commentList}>
+              <div className={styles.comment} key={comment.id}>
                 <img src={comment.author_avatar} className={styles.avatar} />
                 <div className={styles.commentDetails}>
                   <div className={styles.author}>{comment.author_nickname}</div>
@@ -102,20 +112,21 @@ export default function CommentSection(props: { taskId: number }) {
                       </div>
                     )}
                     <div className={styles.subComments}>
-                      {[...comment.sub_comments].reverse().map((comment: Comment) => (
-                        <div className={styles.comment} key={comment.id}>
-                          <img
-                            src={comment.author_avatar}
-                            className={styles.avatar}
-                          />
-                          <div className={styles.commentDetails}>
-                            <div className={styles.author}>
-                              {comment.author_nickname}
+                      {comment.sub_comments &&
+                        comment.sub_comments.map((comment: Comment) => (
+                          <div className={styles.comment} key={comment.id}>
+                            <img
+                              src={comment.author_avatar}
+                              className={styles.avatar}
+                            />
+                            <div className={styles.commentDetails}>
+                              <div className={styles.author}>
+                                {comment.author_nickname}
+                              </div>
+                              <p>{comment.text}</p>
                             </div>
-                            <p>{comment.text}</p>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
                   </div>
                 </div>

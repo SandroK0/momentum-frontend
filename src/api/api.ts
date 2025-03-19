@@ -134,6 +134,6 @@ export async function postComment(
       headers: getAuthHeaders(),
     }
   );
-
+  console.log(response.data)
   return response.data;
 }

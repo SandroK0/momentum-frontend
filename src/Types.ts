@@ -49,5 +49,5 @@ export interface Comment {
   parent_id: number | null;
   author_avatar: string;
   author_nickname: string;
-  sub_comments: Comment[];
+  sub_comments?: Comment[];
 }
