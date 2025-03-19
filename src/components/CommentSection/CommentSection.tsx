@@ -73,9 +73,9 @@ export default function CommentSection(props: { taskId: number }) {
       </div>
       <div>
         {comments &&
-          comments.map((comment: Comment) => (
-            <div className={styles.commentList}>
-              <div className={styles.comment} key={comment.id}>
+          [...comments].reverse().map((comment: Comment) => (
+            <div className={styles.commentList}key={comment.id}>
+              <div className={styles.comment} >
                 <img src={comment.author_avatar} className={styles.avatar} />
                 <div className={styles.commentDetails}>
                   <div className={styles.author}>{comment.author_nickname}</div>
@@ -102,7 +102,7 @@ export default function CommentSection(props: { taskId: number }) {
                       </div>
                     )}
                     <div className={styles.subComments}>
-                      {comment.sub_comments.map((comment: Comment) => (
+                      {[...comment.sub_comments].reverse().map((comment: Comment) => (
                         <div className={styles.comment} key={comment.id}>
                           <img
                             src={comment.author_avatar}

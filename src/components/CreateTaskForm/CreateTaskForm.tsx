@@ -360,6 +360,7 @@ export default function CreateTaskForm() {
                   )
                   : []
               }
+              isDisabled={form.department === -1}
               value={employees.find((e) => e.id === form.employee) || null}
               getOptionValue={(option: Employee) => String(option.id)}
               getOptionLabel={(option: Employee) => option.name}

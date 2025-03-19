@@ -9,6 +9,7 @@ import {
   NameValidationErrors,
   validateName,
 } from "../../utils/validationUtils";
+import { triggerRefetchEmployees } from "../../utils/refetchUtility";
 
 interface CreateEmployeeProps {
   closeModal: () => void;
@@ -98,6 +99,7 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
     try {
       await postEmployee(name, lastName, selectedImage as File, department);
 
+      triggerRefetchEmployees()
       props.closeModal();
     } catch (err: any) {
       console.log("Error creating Employee", err.message);

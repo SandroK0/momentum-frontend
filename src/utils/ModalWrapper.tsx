@@ -47,7 +47,9 @@ export default function ModalWrapper({
         height: "100vh",
         zIndex: 20,
         position: "absolute",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
         top: 0,
         left: 0,
       }}

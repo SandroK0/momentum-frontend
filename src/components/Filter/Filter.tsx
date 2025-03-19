@@ -4,6 +4,7 @@ import FilterDropdown from "../FilterDropdown/FilterDropdown";
 import styles from "./Filter.module.css";
 import { Employee, FilterType, SelectedFilters } from "../../Types";
 import { getDepartments, getEmployees, getPriorities } from "../../api/api";
+import  { setRefetchEmployees } from "../../utils/refetchUtility";
 
 interface FilterProps {
   selectedFilters: SelectedFilters;
@@ -44,7 +45,11 @@ export default function Filter(props: FilterProps) {
   }
 
   useEffect(() => {
+    setRefetchEmployees(getFiltersData);
     getFiltersData();
+    return () => {
+      setRefetchEmployees(null as any);
+    };
   }, []);
 
   useEffect(() => {
