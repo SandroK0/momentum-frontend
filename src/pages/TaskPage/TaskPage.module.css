@@ -13,7 +13,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 600;
 }
 
 .priority {
@@ -30,6 +29,7 @@
 
 .desc {
   margin-top: 50px;
+  font-size: 18px;
 }
 
 .cont {
@@ -55,6 +55,7 @@
   display: flex;
   width: 170px;
   gap: 6px;
+  color: #474747;
 }
 
 .optionStyle {
@@ -69,6 +70,10 @@
 
 .taskData {
   width: 715px;
+}
+
+.taskData h1 {
+  font-weight: 600;
 }
 
 .avatar {

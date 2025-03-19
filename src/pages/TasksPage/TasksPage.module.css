@@ -1,13 +1,12 @@
-.tasksPage {
-  height: 100%;
-  width: 100%; /* or whatever width you need */
+.taskPage {
   overflow-x: hidden;
 }
 
-.tasksPage h1 {
+.taskPage h1 {
   margin-top: 40px;
   font-size: 34px;
   color: #212529;
+  font-weight: 600;
 }
 
 .selectedFilters {
@@ -55,7 +54,7 @@
   margin-top: 24px;
   text-align: center;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   width: 381px;
   padding: 15px 0;
   border-radius: 10px;

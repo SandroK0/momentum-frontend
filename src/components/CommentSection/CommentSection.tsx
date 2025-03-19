@@ -15,7 +15,6 @@ export default function CommentSection(props: { taskId: number }) {
       const data = await getAllComments(props.taskId);
 
       setComments(data);
-      console.log(data);
     } catch (error) {
       console.log("Error fetching comments:", error);
     }

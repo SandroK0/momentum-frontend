@@ -13,14 +13,14 @@
   position: absolute;
 }
 
-
-.cont input:focus{
+.cont input:focus {
   outline: none;
 }
 
 .cont h2 {
   text-align: center;
   margin-top: 37px;
+  font-weight: 500;
 }
 
 .inputsCont {
@@ -46,8 +46,6 @@
   border-radius: 6px;
 }
 
-
-
 .imgInputCont {
   margin-top: 45px;
   display: flex;
@@ -55,10 +53,9 @@
   gap: 8px;
 }
 
-.label { 
-  font-weight: 600;
+.label {
+  font-weight: 500;
 }
-
 
 .btnCont {
   margin-top: 45px;
@@ -78,6 +75,7 @@
 .btnCont button:first-child {
   color: #343a40;
   background-color: white;
+  font-weight: 16px;
 }
 
 .btnCont button:last-child {
@@ -104,10 +102,9 @@
   width: 100%;
   font-size: 14px;
   border-radius: 6px;
-
 }
 
 .reqField {
   font-size: 10px;
-  color: #6C757D;
+  color: #6c757d;
 }

@@ -190,7 +190,7 @@ export default function CreateEmployee(props: CreateEmployeeProps) {
           <ImageUploader onImageSelect={setSelectedImage} />
         </div>
         <div className={styles.depInput}>
-          <label htmlFor="">დეპარტამენტი*</label>
+          <label className={styles.label}>დეპარტამენტი*</label>
           <select
             value={department}
             onChange={(e) => setDepartment(Number(e.target.value))}

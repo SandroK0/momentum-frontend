@@ -12,7 +12,6 @@
   gap: 150px;
 }
 
-
 .taskFormCont input:focus {
   outline: none;
 }
@@ -20,8 +19,6 @@
 .taskFormCont textarea:focus {
   outline: none;
 }
-
-
 
 .taskForm {
   display: flex;
@@ -61,6 +58,7 @@
   font-size: 14px;
   border-radius: 6px;
   height: 45px;
+  font-weight: 300;
 }
 
 .textArea {
@@ -71,10 +69,12 @@
   resize: none;
   padding: 14px;
   font-size: 14px;
+
+  font-weight: 300;
+  color: #0d0f10;
 }
 
 .label {
-  font-weight: 600;
   font-size: 16px;
   margin-bottom: 3px;
 }
