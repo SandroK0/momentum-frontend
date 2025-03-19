@@ -1,8 +1,7 @@
 import { useState } from "react";
 import styles from "./ImageUploader.module.css";
 import trashIcon from "../../assets/trash-icon.svg";
-import uploadIcon from "../../assets/gallery-export.svg"
-
+import uploadIcon from "../../assets/gallery-export.svg";
 
 interface ImageUploaderProps {
   onImageSelect: (file: File | null) => void;
@@ -17,7 +16,7 @@ export default function ImageUploader({ onImageSelect }: ImageUploaderProps) {
     if (file) {
       const maxSizeInBytes = 600 * 1024;
       if (file.size > maxSizeInBytes) {
-        setError("File size exceeds 600KB. Please upload a smaller image.");
+        setError("ფაილის ზომა მეტია 600KB-ზე.");
         setPreview(null);
         onImageSelect(null);
         return;
@@ -52,6 +51,7 @@ export default function ImageUploader({ onImageSelect }: ImageUploaderProps) {
           >
             <img src={uploadIcon} alt="" />
             <span className={styles.uploadText}>ატვირთე ფოტო</span>
+            {error && <div style={{color:"red", fontSize:"11px"}}>{error}</div>}
           </div>
         )}
         <input
