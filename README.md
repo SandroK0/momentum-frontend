@@ -1,3 +1,5 @@
+# Momentum - Progress Tracking Application
+
 ## Docker
 
 1. Clone this repository:
